@@ -1,21 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Icon Symbolizer</title>
-    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+<head>
+  <meta charset="utf-8">
+  <title>Emita</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+      <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <style>
+	
+
       .map {
         width: 100%;
         height:600px;
       }
+	  .ol-attribution {
+			display: none;
+		}
+		#popup{
+			display: none;
+			z-index: 3;
+			padding: 16px;
+			opacity: 0.8;
+			left: 10%;
+			height:350px;
+			position: absolute;
+			top: 100px;
+			width: 250px;
+			border-radius: 6px;
+			-webkit-backdrop-filter: blur(20px);
+			backdrop-filter: blur(20px);
+			background-blend-mode: multiply;
+			background-image: linear-gradient(rgba(13,36,59,.6),rgba(13,36,59,.6));
+		}
+		#avgRH{
+			left: 175px;
+			top:78px;
+			font-size:25px;
+			position: absolute;
+		}
+		.popup-row{
+			margin-bottom:32px;
+			color: #ffffff;
+			font-size: 16px;
+		}
+		.popup-title{
+			width: 60%;
+			float:left;
+		}
+		.popup-values{
+			width: 40%;
+			float:left;
+		}
+
     </style>
-  </head>
-  <body>
-    <div id="map" class="map"><div id="popup"></div></div>
-    <script src="index.js"></script>
-  </body>
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i" rel="stylesheet">
+
+  <!-- Bootstrap css -->
+  <!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.theme.default.min.css" rel="stylesheet">
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/modal-video/css/modal-video.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+    Theme Name: eStartup
+    Theme URL: https://bootstrapmade.com/estartup-bootstrap-landing-page-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+
+</head>
+
+<body>
+			<div id="map" class="map container">
+				<div id="popup" class="container">
+					<div>
+						<img id="popup-img" src="http://tahamtan.net/img/aqi1.png" width="100%"/>
+						<span id="avgRH">15</span>
+						<div class="popup-row">
+							<span class="popup-title" style="width:40%">Date: </span> 
+							<span id="val-date" class="popup-values" style="width:60%">2019-10-15</span>
+						</div>
+						<div class="popup-row">
+							<span class="popup-title">RH: </span> 
+							<span id="val-avgRH" class="popup-values">15</span>
+						</div>
+						<div class="popup-row">
+							<span class="popup-title">Pressure: </span> 
+							<span id="val-Avgpres" class="popup-values">15</span>
+						</div>
+						<div class="popup-row">
+							<span class="popup-title">Temperature: </span> 
+							<span id="val-AvgTemp" class="popup-values">15</span>
+						</div>
+						<div class="popup-row">
+							<span class="popup-title">PM 2.5: </span> 
+							<span id="val-AvgPM2_5" class="popup-values">43</span>
+						</div>
+						<button onclick="document.getElementById('popup').style.display = 'none';" style="bottom:8px;font-size:16px;right:8px;position:absolute;background:none;color:#fff">Close</button>
+					</div>
+				</div>
+			</div>
+
+	
+  <header id="header" class="header header-hide">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <h1><a href="#body" class="scrollto"><span>E</span>mita</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="#hero">Home</a></li>
+		  <!-- #nav-menu-container 
+          <li class="menu-has-children"><a href="">Drop Down</a>
+            <ul>
+              <li><a href="#">Drop Down 1</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li>
+              <li><a href="#">Drop Down 5</a></li>
+            </ul>
+          </li>
+		  -->
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+
+
+<section id="features" class="padd-section text-center wow fadeInUp">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-6 col-lg-4">
+          <div class="feature-block">
+            <img src="http://tahamtan.net/img/aqi1.png" alt="img" class="img-fluid">
+            <h4>Good</h4>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="feature-block">
+            <img src="http://tahamtan.net/img/aqi2.png" alt="img" class="img-fluid">
+            <h4>Moderate</h4>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="feature-block">
+            <img src="http://tahamtan.net/img/aqi3.png" alt="img" class="img-fluid">
+            <h4>Unhealthy for sensitive groups</h4>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6">
+          <div class="feature-block">
+            <img src="http://tahamtan.net/img/aqi4.png" alt="img" class="img-fluid">
+            <h4>Unhealthy</h4>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6">
+          <div class="feature-block">
+            <img src="http://tahamtan.net/img/aqi5.png" alt="img" class="img-fluid">
+            <h4>Very Unhealthy</h4>
+          </div>
+        </div>
+	 </div>
+	</div>
+	</section>
+  <!--==========================
+    Hero Section
+  ============================-->
+  <section id="hero" class="wow fadeIn">
+    <div class="hero-container">
+      <h1>Welcome to Emita</h1>
+      <h2>Here you can find the accurate measure of air quality in Tehran</h2>
+      <img src="img/hero-img.png" alt="Hero Imgs">
+      <a href="#contact" class="btn-get-started scrollto">Contact us</a>
+	  <!-- #hero 
+      <div class="btns">
+        <a href="#"><i class="fa fa-apple fa-3x"></i> App Store</a>
+        <a href="#"><i class="fa fa-play fa-3x"></i> Google Play</a>
+        <a href="#"><i class="fa fa-windows fa-3x"></i> windows</a>
+      </div>
+	  -->
+    </div>
+  </section><!-- #hero -->
+
+  <!--==========================
+    Get Started Section
+  ============================-->
+  <section id="get-started" class="padd-section text-center wow fadeInUp">
+
+    
+
+
+
+ 
+
+    <div class="copyrights">
+      <div class="container">
+        <p>&copy; Copyrights Emita. All rights reserved.</p>
+        <div class="credits">
+
+          Designed by <a href="https://tahamtan.net">Mohammad Tahamtan</a>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/superfish/hoverIntent.js"></script>
+  <script src="lib/superfish/superfish.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/modal-video/js/modal-video.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+<script src="index.js"></script>
+</body>
 </html>

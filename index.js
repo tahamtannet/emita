@@ -20,7 +20,6 @@ var tileLayer = new TileLayer({
 });
 
 
-
 var coordinate = [51.3010, 35.7166];
 var map = new Map({
   layers: [tileLayer],
@@ -32,6 +31,42 @@ var map = new Map({
   })
 });
 
+
+map.on('singleclick', function(e) {
+                  var feature = map.forEachFeatureAtPixel(e.pixel, function(feature) {
+                    return feature;
+                  });
+				  if(feature){
+					 console.log(feature.values_.name.AvgTemp);
+					 document.getElementById("val-AvgTemp").innerHTML = Math.round(feature.values_.name.AvgTemp);
+					 document.getElementById("val-AvgPM2_5").innerHTML = Math.round(feature.values_.name.AvgPM2_5);
+					 document.getElementById("val-Avgpres").innerHTML = Math.round(feature.values_.name.Avgpres);
+					 document.getElementById("val-avgRH").innerHTML = Math.round(feature.values_.name.avgRH);
+					 document.getElementById("avgRH").innerHTML = Math.round(feature.values_.name.avgRH);
+					 document.getElementById("val-date").innerHTML = feature.values_.name.date;
+					 document.getElementById("popup").style.display = "block";
+					 var imgURL = 'http://tahamtan.net/img/aqi1.png';
+					 if(feature.values_.name.avgRH){
+
+						var n = Math.floor(feature.values_.name.avgRH);
+						
+						if(n>=200){
+							imgURL = 'http://tahamtan.net/img/aqi5.png';
+						}else if(n>=150){
+							imgURL = 'http://tahamtan.net/img/aqi4.png';
+						}else if(n>=100){
+							imgURL = 'http://tahamtan.net/img/aqi3.png';
+						}else if(n>=50){
+							imgURL = 'http://tahamtan.net/img/aqi2.png';
+						}else {
+							imgURL = 'http://tahamtan.net/img/aqi1.png';
+						}
+					}
+					document.getElementById("popup-img").src = imgURL;
+				  }
+					
+                });
+				
 var source = new VectorSource({
   wrapX: false
 });
@@ -76,37 +111,7 @@ map.addLayer(vector);
   }
   
   
- //added
-var element = document.getElementById('popup');
 
-var popup = new Overlay({
-  element: element,
-  positioning: 'bottom-center',
-  stopEvent: false,
-  offset: [0, 0]
-});
-map.addOverlay(popup);
-
-
-  // display popup on click
-map.on('click', function(evt) {
-	var feature = map.forEachFeatureAtPixel(evt.pixel,
-    function(feature) {
-      return feature;
-    });
-  if (feature) {
-    var coordinates = feature.getGeometry().getCoordinates();
-    popup.setPosition(coordinates);
-    $(element).popover({
-      placement: 'top',
-      html: true,
-      content: feature.get('name')
-    });
-    $(element).popover('show');
-  } else {
-    $(element).popover('destroy');
-  }
-});
 
 
 
@@ -126,14 +131,12 @@ fetch(url, settings)
 		console.log(json);
 		for (var i=0; i < json.SRData.length; i++){
 			
-			var str = "";
 			var sensor = json.SRData[i];
 			var titleUP = "null";
 			var imgURL = 'http://tahamtan.net/img/aqi1.png';
 			
 			if(sensor.avgRH){
-			str += "\n avgRH: ";
-			str += sensor.avgRH.toString();
+
 			var n = Math.floor(sensor.avgRH);
 			titleUP = n.toString();
 			
@@ -149,45 +152,14 @@ fetch(url, settings)
 					imgURL = 'http://tahamtan.net/img/aqi1.png';
 				}
 			}else{
-			str += "\n avgRH: ";
-			str += "null";
+				imgURL = 'http://tahamtan.net/img/aqi1.png';
 			}
-			
-			if(sensor.AvgPM2_5){
-			str += "\n AvgPM2_5: ";
-			str += sensor.AvgPM2_5.toString();
-			}else{
-			str += "\n AvgPM2_5: ";
-			str += "null";
-			}
-			
-			if(sensor.AvgTemp){
-			str += "\n AvgTemp: ";
-			str += sensor.AvgTemp.toString();
-			}else{
-			str += "\n AvgTemp: ";
-			str += "null";
-			}
-			
-
-			if(sensor.Avgpres){
-			str += "\n Avgpres: ";
-			str += sensor.Avgpres.toString();
-			}else{
-			str += "\n Avgpres: ";
-			str += "null";
-			}
-
-			
-			str += "\n Date: ";
-			str += sensor.date;
-			
-			
+						
 			var lon = (Math.random() * 0.25) + 51.30;
 			var lat = (Math.random() * 0.25) + 35.60;
 			
 
-			addMarker(lon, lat, str, titleUP, imgURL);
+			addMarker(lon, lat, sensor, titleUP, imgURL);
 		}
 		
 		
