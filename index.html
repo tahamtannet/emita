@@ -12,7 +12,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <style>
 	
-
+		.top-map-items{
+			margin: 0px;
+			padding: 0px;
+		}
+		
+		.top-map-items img{
+			margin: 0px;
+		}
       .map {
         width: 100%;
         height:600px;
@@ -28,7 +35,7 @@
 			left: 10%;
 			height:350px;
 			position: absolute;
-			top: 100px;
+			top: 50px;
 			width: 250px;
 			border-radius: 6px;
 			-webkit-backdrop-filter: blur(20px);
@@ -55,11 +62,48 @@
 			width: 40%;
 			float:left;
 		}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
 
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
     </style>
   <!-- Favicons -->
-  <link href="img/favicon.png" rel="icon">
-  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="img/fav.png" rel="icon">
+  <link href="img/logo.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i" rel="stylesheet">
@@ -88,7 +132,72 @@
 </head>
 
 <body>
-			<div id="map" class="map container">
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content container">
+    <span class="close">&times;</span>
+    
+	<img src="img/guide.png" width="100%"/>
+
+  </div>
+
+</div>
+
+
+
+
+<section id="features" class=" text-center wow fadeInUp">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-4 col-lg-2 top-map-items">
+          <div class="feature-block">
+            <img src="img/aqi1.png" alt="img" class="img-fluid">
+            <h4>Good</h4>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2 top-map-items">
+          <div class="feature-block">
+            <img src="img/aqi2.png" alt="img" class="img-fluid">
+            <h4>Moderate</h4>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2 top-map-items">
+          <div class="feature-block">
+            <img src="img/aqi3.png" alt="img" class="img-fluid">
+            <h4>Unhealthy for sensitive groups</h4>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2 top-map-items">
+          <div class="feature-block">
+            <img src="img/aqi4.png" alt="img" class="img-fluid">
+            <h4>Unhealthy</h4>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2 top-map-items">
+          <div class="feature-block">
+            <img src="img/aqi5.png" alt="img" class="img-fluid">
+            <h4>Very Unhealthy</h4>
+          </div>
+        </div>
+		<div id="modal-guide" class="col-md-4 col-lg-2 top-map-items">
+          <div class="feature-block">
+            <img src="img/help.png" alt="img" class="img-fluid">
+            <h4>Guide</h4>
+          </div>
+        </div>
+	 </div>
+	</div>
+	</section>
+		<div style="padding:20px; background:#a8acb7;" class="container">
+			<div id="map" class="map">
 				<div id="popup" class="container">
 					<div>
 						<img id="popup-img" src="http://tahamtan.net/img/aqi1.png" width="100%"/>
@@ -117,13 +226,15 @@
 					</div>
 				</div>
 			</div>
+		</div>
 
 	
   <header id="header" class="header header-hide">
     <div class="container">
 
       <div id="logo" class="pull-left">
-        <h1><a href="#body" class="scrollto"><span>E</span>mita</a></h1>
+		
+        <h1><a href="#body" class="scrollto"><img src="img/logo.png" width="150x"/></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
       </div>
@@ -149,55 +260,15 @@
 
 
 
-<section id="features" class="padd-section text-center wow fadeInUp">
-    <div class="container">
-      <div class="row">
 
-        <div class="col-md-6 col-lg-4">
-          <div class="feature-block">
-            <img src="http://tahamtan.net/img/aqi1.png" alt="img" class="img-fluid">
-            <h4>Good</h4>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4">
-          <div class="feature-block">
-            <img src="http://tahamtan.net/img/aqi2.png" alt="img" class="img-fluid">
-            <h4>Moderate</h4>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4">
-          <div class="feature-block">
-            <img src="http://tahamtan.net/img/aqi3.png" alt="img" class="img-fluid">
-            <h4>Unhealthy for sensitive groups</h4>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-6">
-          <div class="feature-block">
-            <img src="http://tahamtan.net/img/aqi4.png" alt="img" class="img-fluid">
-            <h4>Unhealthy</h4>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-6">
-          <div class="feature-block">
-            <img src="http://tahamtan.net/img/aqi5.png" alt="img" class="img-fluid">
-            <h4>Very Unhealthy</h4>
-          </div>
-        </div>
-	 </div>
-	</div>
-	</section>
   <!--==========================
     Hero Section
   ============================-->
-  <section id="hero" class="wow fadeIn">
+  <section id="hero" class="wow fadeIn container">
     <div class="hero-container">
-      <h1>Welcome to Emita</h1>
-      <h2>Here you can find the accurate measure of air quality in Tehran</h2>
-      <img src="img/hero-img.png" alt="Hero Imgs">
+      <h1 style="margin-top:70px;">Our goal is to create better awareness of the environment</h1>
+      <h2>An air quality monitoring network built in a new generation of "internet of things" sensors</h2>
+      <img src="img/banner.png" alt="Hero Imgs">
       <a href="#contact" class="btn-get-started scrollto">Contact us</a>
 	  <!-- #hero 
       <div class="btns">
@@ -225,7 +296,7 @@
         <p>&copy; Copyrights Emita. All rights reserved.</p>
         <div class="credits">
 
-          Designed by <a href="https://tahamtan.net">Mohammad Tahamtan</a>
+          Developed by <a href="http://manarayka.ir/">Mane Rayka</a>
         </div>
       </div>
     </div>
@@ -252,5 +323,32 @@
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
 <script src="index.js"></script>
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("modal-guide");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
 </body>
 </html>
