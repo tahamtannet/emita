@@ -196,9 +196,10 @@
 	 </div>
 	</div>
 	</section>
-		<div style="padding:20px; background:#a8acb7;" class="container">
-			<div id="map" class="map">
-				<div id="popup" class="container">
+		<div style="padding:20px; background:#a8acb7;height:640px;" class="container">
+		
+			<div style="position:relative;">
+				<div id="popup" class="container" style="position:absolute;">
 					<div>
 						<img id="popup-img" src="http://tahamtan.net/img/aqi1.png" width="100%"/>
 						<span id="avgRH">15</span>
@@ -225,7 +226,10 @@
 						<button onclick="document.getElementById('popup').style.display = 'none';" style="bottom:8px;font-size:16px;right:8px;position:absolute;background:none;color:#fff">Close</button>
 					</div>
 				</div>
+				<div id="map" class="map" style="position:absolute;">
+				</div>
 			</div>
+
 		</div>
 
 	
